@@ -98,6 +98,8 @@ const defaults = {
   s3SSLEnabled: true,
   s3ForcePathStyle: false,
   s3Compress: false,
+  gsCompress: false,
+  fileSize: '10mb',
   s3ServerSideEncryption: null,
   s3SSEKMSKeyId: null,
   s3ACL: null,
@@ -131,6 +133,7 @@ const commonParams = [
   `--pass=${options.pass}`,
   `--ca=${options.ca}`,
   `--tlsAuth=${options.tlsAuth}`,
+  `--fileSize=${options.fileSize}`,
   `--input-cert=${options['input-cert']}`,
   `--input-key=${options['input-key']}`,
   `--input-pass=${options['input-pass']}`,
@@ -160,6 +163,7 @@ const commonParams = [
   `--s3SSLEnabled=${options.s3SSLEnabled}`,
   `--s3ForcePathStyle=${options.s3ForcePathStyle}`,
   `--s3Compress=${options.s3Compress}`,
+  `--gsCompress=${options.gsCompress}`,
   `--s3ServerSideEncryption=${options.s3ServerSideEncryption}`,
   `--s3SSEKMSKeyId=${options.s3SSEKMSKeyId}`,
   `--s3ACL=${options.s3ACL}`,
@@ -170,7 +174,8 @@ const commonParams = [
 const fileExt = options.fsCompress ? 'json.gz' : 'json'
 
 const validateDirectory = (options, field) => {
-  if (options[field].startsWith('s3://')) {
+  if (options[field].startsWith('s3://') ||
+      options[field].startsWith('gs://')) {
     return
   }
 

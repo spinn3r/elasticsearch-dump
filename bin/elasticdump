@@ -66,6 +66,7 @@ const defaults = {
   s3Options: null,
   s3Configs: null,
   fsCompress: false,
+  gsCompress: false,
   awsIniFileName: null,
   sessionToken: null,
   transform: null,
